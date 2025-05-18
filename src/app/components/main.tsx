@@ -4,20 +4,36 @@ import Image from "next/image";
 
 export default function Main() {
   return (
-    <div className="grid p-5 sm:p-20 grid-cols-1 md:grid-cols-2 items-center justify-center">
+    <div className="grid p-2 gap-15 grid-cols-1 md:grid-cols-[0.8fr_1fr] items-center justify-center justify-items-center">
       {/* Texte à gauche */}
       <div className="text-center md:text-left">
-        <h1 className="text-[2.5rem] sm:text-5xl font-extrabold text-[#e4d1ff] drop-shadow-[0_0_10px_rgba(228,209,255,0.6)] leading-tight">
+        <h1 className="md:text-[2.5rem] text-2xl font-extrabold text-[#EED1B4] drop-shadow-[0_0_10px_rgba(239,134,68,0.5)] leading-tight">
           AstroMood app <br /> Connectée à tes étoiles
         </h1>
 
-        <p className="mt-4 text-lg italic text-[#c1aaff] drop-shadow-[0_0_6px_rgba(193,170,255,0.4)]">
+        <p className="mt-4 text-lg italic text-[#ffbf96] drop-shadow-[0_0_6px_rgba(255,191,150,0.4)]">
           Stars in the palm of your hand
         </p>
+
+        <div className="flex mt-4">
+          <Image
+            src="/assets/App_Store.webp"
+            alt="App Store"
+            width={150}
+            height={150}
+          />
+          <Image
+            src="/assets/Google_Play.webp"
+            alt="Google Play"
+            width={150}
+            height={150}
+            className="ml-2"
+          />
+        </div>
       </div>
 
       {/* Image à droite */}
-      <div className="relative w-[580px] h-[580px] mt-10 md:mt-0">
+      <div className="relative w-[400px] h-[400px] md:w-[600px] md:h-[600px]">
         <Image
           src="/assets/zodiac.webp"
           alt="Astro background"

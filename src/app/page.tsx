@@ -8,7 +8,7 @@ import Footer from "./components/footer";
 export default function Home() {
   return (
     <div
-      className="relative min-h-screen overflow-y-auto bg-cover bg-center"
+      className="relative min-h-screen flex flex-col justify-between overflow-y-auto bg-cover bg-center"
       style={{ backgroundImage: `url('/assets/night.webp')` }}
     >
       <Nav />

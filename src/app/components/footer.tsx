@@ -1,16 +1,24 @@
 "use client";
 
-//import Image from "next/image";
 export default function Footer() {
   return (
-    <>
+    <div className="relative w-full h-[8vh]">
+      {/* fond décoratif flouté */}
       <div
-        className="absolute bottom-0 left-0 w-full h-[20%] z-2 opacity-60 blur-2xl"
+        className="absolute inset-0 z-0 opacity-60 blur-2xl pointer-events-none"
         style={{
           backgroundImage:
-            "linear-gradient(to right top, rgba(34,5,55,0) 0%, #220537 25%, #270b41 50%, #2f1655 75%, #331c60 100%)",
+            "linear-gradient(to bottom, #73492d, #905833, #af6738, #ce763e, #ef8644)",
         }}
       />
-    </>
+
+      {/* contenu visible */}
+      <div className="relative z-10 flex flex-wrap gap-2 justify-center md:justify-between items-center h-full px-6 py-4 text-white text-sm">
+        <p>© 2025 AstroMood. All rights reserved.</p>
+        <p>Built by Si_Graph</p>
+        <p>Privacy Policy</p>
+        <p>Terms and Conditions</p>
+      </div>
+    </div>
   );
 }
