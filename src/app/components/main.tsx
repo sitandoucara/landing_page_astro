@@ -44,8 +44,8 @@ export default function Main() {
           <Image
             src="/assets/phone.webp"
             alt="Phone"
-            width={200}
-            height={200}
+            width={250}
+            height={250}
           />
         </div>
       </div>
