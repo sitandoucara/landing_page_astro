@@ -2,7 +2,7 @@
 
 export default function Footer() {
   return (
-    <div className="relative w-full h-[8vh]">
+    <div className="relative w-full mt-10 h-[8vh]">
       {/* fond décoratif flouté */}
       <div
         className="absolute inset-0 z-0 opacity-60 blur-2xl pointer-events-none"
