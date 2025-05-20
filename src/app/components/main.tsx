@@ -4,7 +4,7 @@ import Image from "next/image";
 
 export default function Main() {
   return (
-    <div className="grid p-2 gap-15 grid-cols-1 md:grid-cols-[0.8fr_1fr] items-center justify-center justify-items-center">
+    <div className="grid p-2  gap-15 grid-cols-1 md:grid-cols-[0.8fr_1fr] items-center justify-center justify-items-center">
       {/* Texte à gauche */}
       <div className="text-center md:text-left">
         <h1 className="md:text-[2.5rem] text-2xl font-extrabold text-[#EED1B4] drop-shadow-[0_0_10px_rgba(239,134,68,0.5)] leading-tight">
@@ -33,7 +33,7 @@ export default function Main() {
       </div>
 
       {/* Image à droite */}
-      <div className="relative w-[400px] h-[400px] md:w-[600px] md:h-[600px]">
+      <div className="relative z-3 w-[400px] h-[400px] md:w-[600px] md:h-[600px]">
         <Image
           src="/assets/zodiac.webp"
           alt="Astro background"
@@ -49,6 +49,8 @@ export default function Main() {
           />
         </div>
       </div>
+
+      <div className="absolute bottom-0 mt-2 blur-xl left-0 w-full h-[5vh] bg-gradient-to-b from-[#ac5a20] to-[#0d0601] z-2" />
     </div>
   );
 }

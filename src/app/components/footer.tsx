@@ -5,7 +5,7 @@ export default function Footer() {
     <div className="relative w-full mt-10 h-[8vh]">
       {/* fond décoratif flouté */}
       <div
-        className="absolute inset-0 z-0 opacity-60 blur-2xl pointer-events-none"
+        className="absolute inset-0 z-0 opacity-60 bg-[#211c19] blur-2xl pointer-events-none"
         style={{
           backgroundImage:
             "linear-gradient(to bottom, #73492d, #905833, #af6738, #ce763e, #ef8644)",

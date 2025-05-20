@@ -13,25 +13,31 @@ export default function Section3() {
           Decouvre en plus sur toi
         </h1>
         <div className=" grid grid-cols-3 justify-center justify-items-center md:justify-between items-center  px-6 py-4 text-white text-sm">
-          <div>
-            <div className="border rounded-[5px] border-[#ef8644] p-6">
-              <h2>Daily Transit</h2>
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Laudantium odit eius debitis doloremque ducimus consectetur ea
-                ipsum. A, quaerat ipsa suscipit similique et impedit, sit
-                dignissimos facilis animi iste debitis?
-              </p>
-            </div>
-            <div className="border rounded-[5px] mt-2 border-[#ef8644] p-6">
-              <h2>Daily Transit</h2>
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Laudantium odit eius debitis doloremque ducimus consectetur ea
-                ipsum. A, quaerat ipsa suscipit similique et impedit, sit
-                dignissimos facilis animi iste debitis?
-              </p>
-            </div>
+          <div className="flex flex-wrap justify-center gap-6">
+            {[
+              {
+                name: "Amina",
+                word: "Apaisant!",
+                text: "Un vrai moment de calme et de recentrage quotidien.",
+              },
+              {
+                name: "Lucas",
+                word: "Magique!",
+                text: "L’expérience utilisateur est magnifique et l’appli est intuitive.",
+              },
+            ].map(({ name, word, text }, index) => (
+              <div
+                key={index}
+                className="backdrop-blur-xl bg-[#ef864433] border border-[#ef8644] rounded-2xl p-6 w-[250px] sm:w-[280px] text-left shadow-md transform hover:scale-[1.02] transition-all duration-300"
+                style={{ backdropFilter: "blur(12px)" }}
+              >
+                <h3 className="text-sm text-[#EED1B4] mb-1">{name}</h3>
+                <h4 className="text-xl font-bold text-[#ef8644] mb-2">
+                  {word}
+                </h4>
+                <p className="text-sm text-white">{text}</p>
+              </div>
+            ))}
           </div>
 
           <div>
@@ -43,25 +49,31 @@ export default function Section3() {
             />
           </div>
 
-          <div>
-            <div className=" border rounded-[5px] border-[#ef8644] p-6">
-              <h2>Daily Transit</h2>
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Laudantium odit eius debitis doloremque ducimus consectetur ea
-                ipsum. A, quaerat ipsa suscipit similique et impedit, sit
-                dignissimos facilis animi iste debitis?
-              </p>
-            </div>
-            <div className="border rounded-[5px] mt-2 border-[#ef8644] p-6">
-              <h2>Daily Transit</h2>
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Laudantium odit eius debitis doloremque ducimus consectetur ea
-                ipsum. A, quaerat ipsa suscipit similique et impedit, sit
-                dignissimos facilis animi iste debitis?
-              </p>
-            </div>
+          <div className="flex flex-wrap justify-center gap-6">
+            {[
+              {
+                name: "Amina",
+                word: "Apaisant!",
+                text: "Un vrai moment de calme et de recentrage quotidien.",
+              },
+              {
+                name: "Lucas",
+                word: "Magique!",
+                text: "L’expérience utilisateur est magnifique et l’appli est intuitive.",
+              },
+            ].map(({ name, word, text }, index) => (
+              <div
+                key={index}
+                className="backdrop-blur-xl bg-[#ef864433] border border-[#ef8644] rounded-2xl p-6 w-[250px] sm:w-[280px] text-left shadow-md transform hover:scale-[1.02] transition-all duration-300"
+                style={{ backdropFilter: "blur(12px)" }}
+              >
+                <h3 className="text-sm text-[#EED1B4] mb-1">{name}</h3>
+                <h4 className="text-xl font-bold text-[#ef8644] mb-2">
+                  {word}
+                </h4>
+                <p className="text-sm text-white">{text}</p>
+              </div>
+            ))}
           </div>
         </div>
       </div>
