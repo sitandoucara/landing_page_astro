@@ -1,18 +1,32 @@
 "use client";
 
-import Nav from "./components/nav";
-import Main from "./components/main";
+//import Nav from "./components/nav";
+//import Main from "./components/main";
 //import Footer from "./components/footer";
-import Loading from "./components/loading";
+//import Loading from "./components/loading";
 import ParticlesCursor from "./components/particles-cursor";
-import Section2 from "./components/section2";
-import Section3 from "./components/section3";
-import Section4 from "./components/section4";
-import Section5 from "./components/section5";
+//import Section2 from "./components/section2";
+//import Section3 from "./components/section3";
+//import Section4 from "./components/section4";
+//import Section5 from "./components/section5";
+import Main2 from "./components/main2";
+import Loading2 from "./components/loading2";
 //import Image from "next/image";
 
 export default function Home() {
   return (
+    <>
+      {/* Option1 */}
+      <div className="bg-[#f2eae0]">
+        <ParticlesCursor />
+
+        <Loading2 />
+
+        <Main2 />
+      </div>
+
+      {/* ------- Option2 ------ *
+
     <div className="bg-[#0E0E0E]">
       <ParticlesCursor />
       <div
@@ -30,7 +44,8 @@ export default function Home() {
       <Section3 />
       <Section4 />
       <Section5 />
-      {/* Image décorative en bas de page */}
-    </div>
+      {/* Image décorative en bas de page 
+    </div>*/}
+    </>
   );
 }

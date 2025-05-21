@@ -47,3 +47,26 @@ body {
 .animate-slow-spin {
   animation: slow-spin 50s linear infinite;
 }
+
+/* globals.css ou dans un style <style jsx global> */
+@keyframes grain-move {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 100px 100px;
+  }
+}
+
+.grain-overlay::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 1;
+  background-image: url("https://grainy-gradients.vercel.app/noise.svg");
+  background-repeat: repeat;
+  background-size: 200px 200px;
+  animation: grain-move 8s linear infinite;
+}
