@@ -49,8 +49,6 @@ export default function Main() {
           />
         </div>
       </div>
-
-      <div className="absolute bottom-0 mt-2 blur-xl left-0 w-full h-[5vh] bg-gradient-to-b from-[#ac5a20] to-[#0d0601] z-2" />
     </div>
   );
 }

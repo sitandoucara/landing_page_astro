@@ -13,7 +13,7 @@ import Section5 from "./components/section5";
 
 export default function Home() {
   return (
-    <div>
+    <div className="bg-[#0E0E0E]">
       <ParticlesCursor />
       <div
         className="relative min-h-screen justify-between overflow-y-auto bg-cover bg-center"
@@ -23,6 +23,9 @@ export default function Home() {
         <Nav />
         <Main />
       </div>
+
+      <div className="absolute bottom-0 mt-2 blur-xl left-0 w-full h-[2vh] bg-gradient-to-b from-[#ac5a20] to-[#0d0601] z-2" />
+
       <Section2 />
       <Section3 />
       <Section4 />

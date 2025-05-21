@@ -16,7 +16,7 @@ export default function Section5() {
           />
         </div>
         {/* Effet de gradient fondu en bas */}
-        <div className="absolute bottom-0 left-0 w-full h-[40vh] bg-gradient-to-b from-transparent to-[#301b0c] z-10" />
+        <div className="absolute bottom-0 left-0 w-full h-[40vh] bg-gradient-to-b from-transparent to-[#0E0E0E] z-10" />
         {/* Contenu centré */}
         <div className="relative z-20 text-center -translate-y-30 px-4">
           <p className="uppercase tracking-widest  text-sm ">Mobile App</p>
@@ -41,9 +41,9 @@ export default function Section5() {
           </div>
         </div>
       </div>
-      <div className="h-[15vh] w-full  bg-[#301b0c]"></div>
+      <div className="h-[15vh] w-full  bg-[#0E0E0E]"></div>
 
-      <div className="w-full  h-[8vh] bg-[#301b0c]">
+      <div className="w-full  h-[8vh] bg-[#0E0E0E]">
         {/* fond décoratif flouté */}
 
         {/* contenu visible */}
