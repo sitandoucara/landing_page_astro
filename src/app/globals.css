@@ -48,6 +48,20 @@ body {
   animation: slow-spin 50s linear infinite;
 }
 
+@keyframes float-x {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(20px);
+  }
+}
+
+.animate-float-x {
+  animation: float-x 6s ease-in-out infinite;
+}
+
 /* globals.css ou dans un style <style jsx global> */
 @keyframes grain-move {
   0% {

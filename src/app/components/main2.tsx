@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { PiMoonStarsFill } from "react-icons/pi";
 import { useState } from "react";
+import StarGlow from "./StarGlow";
 
 export default function Main2() {
   const [activeTab, setActiveTab] = useState<"chart" | "home">("chart");
@@ -19,17 +20,14 @@ export default function Main2() {
     <div className="relative min-h-screen grid grid-rows-[auto_1fr_auto] bg-[#f2eae0] overflow-hidden grain-overlay">
       {/* NAV */}
       <nav className="flex border-b z-2 border-[#7b635a] justify-between items-center p-4">
-        <h1 className="text-2xl font-bold font-carattere text-[#7b635a] drop-shadow-[0_0_10px_rgba(239,134,68,0.5)]">
+        <h1 className="text-2xl font-bold  text-[#7b635a] drop-shadow-[0_0_10px_rgba(239,134,68,0.5)]">
           AstroMood
         </h1>
-        <div className="flex items-center gap-4">
-          <button
-            aria-label="Toggle dark mode"
-            className="text-white text-2xl p-2 rounded-full hover:bg-[#331c60]/30 transition"
-          >
-            <PiMoonStarsFill className="cursor-pointer text-[#7b635a]" />
+        <div className="flex items-center gap-2">
+          <button aria-label="Toggle dark mode">
+            <PiMoonStarsFill className="cursor-pointer text-2xl text-[#7b635a] transition hover:text-[#32221E] " />
           </button>
-          <button className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-[#7b635a] text-sm sm:text-base font-bold flex items-center justify-center text-[#EED1B4] hover:bg-[#331c60] transition">
+          <button className=" sm:w-12 sm:h-12 text-[#7b635a] text-sm sm:text-base font-bold flex items-center justify-center  hover:text-[#32221E] transition">
             EN
           </button>
         </div>
@@ -42,9 +40,17 @@ export default function Main2() {
           <h1 className="md:text-[2.5rem] text-2xl font-extrabold text-[#7b635a] drop-shadow-[0_0_10px_rgba(239,134,68,0.5)] leading-tight">
             AstroMood app <br /> Connectée à tes étoiles
           </h1>
-          <p className="mt-4 text-lg italic text-[#7b635a] drop-shadow-[0_0_6px_rgba(255,191,150,0.4)]">
-            Stars in the palm of your hand
-          </p>
+
+          <div className="flex  gap-2 mt-4">
+            <StarGlow />
+            <p className="text-lg italic text-[#7b635a] drop-shadow-[0_0_6px_rgba(255,191,150,0.4)] transition-all duration-500">
+              {activeTab === "chart"
+                ? "Découvrer plus sur votre chart natal"
+                : "Affirmation & Horoscope régulier"}
+            </p>
+            <StarGlow />
+          </div>
+
           <div className="flex mt-4">
             <Image
               src="/assets/App_Store.png"
@@ -68,7 +74,9 @@ export default function Main2() {
             src={zodiacSrc}
             alt="Astro background"
             fill
-            className="object-contain transition-all duration-700 ease-in-out"
+            className={`object-contain transition-all duration-700 ease-in-out ${
+              activeTab === "chart" ? "animate-slow-spin" : "animate-float-x"
+            }`}
           />
 
           {/* Mockup */}
@@ -76,18 +84,18 @@ export default function Main2() {
             <Image
               src={mockupSrc}
               alt="Phone"
-              width={280}
-              height={280}
+              width={300}
+              height={300}
               className="transition-all duration-700 ease-in-out"
             />
 
             {/* Boutons fake interaction */}
             <div
-              className="absolute bottom-[42px] left-[36px] w-[25px] h-[25px] bg-pink-500 opacity-40 cursor-pointer rounded"
+              className="absolute bottom-[44px] left-[42px] w-[25px] h-[25px]  opacity-40 cursor-pointer rounded"
               onClick={() => setActiveTab("home")}
             />
             <div
-              className="absolute bottom-[42px] left-[80px] w-[25px] h-[25px] bg-pink-500 opacity-40 cursor-pointer rounded"
+              className="absolute bottom-[44px] left-[88px] w-[25px] h-[25px]  opacity-40 cursor-pointer rounded"
               onClick={() => setActiveTab("chart")}
             />
           </div>

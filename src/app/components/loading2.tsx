@@ -8,7 +8,7 @@ export default function Loading2() {
   const [hidden, setHidden] = useState(false);
 
   useEffect(() => {
-    const timer1 = setTimeout(() => setStartExit(true), 1000);
+    const timer1 = setTimeout(() => setStartExit(true), 900);
     const timer2 = setTimeout(() => setHidden(true), 4000);
     return () => {
       clearTimeout(timer1);

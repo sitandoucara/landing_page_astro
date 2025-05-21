@@ -1,7 +1,7 @@
 export default function StarGlow() {
   return (
     <svg
-      className="animate-pulse star absolute w-6 h-6 drop-shadow-[0_0_12px_rgba(239,134,68,0.7)]"
+      className="animate-pulse star w-6 h-6 drop-shadow-[0_0_12px_rgba(239,134,68,0.7)]"
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 24 24"
       fill="none"
@@ -33,8 +33,8 @@ export default function StarGlow() {
           gradientUnits="userSpaceOnUse"
           gradientTransform="translate(12.1818 12) rotate(90) scale(12 1.72668)"
         >
-          <stop offset="0.145833" stopColor="white" />
-          <stop offset="1" stopColor="white" stopOpacity="0" />
+          <stop offset="0.145833" stopColor="#7b635a" />
+          <stop offset="1" stopColor="#7b635a" stopOpacity="0" />
         </radialGradient>
         <radialGradient
           id="paint1_radial"
@@ -44,8 +44,8 @@ export default function StarGlow() {
           gradientUnits="userSpaceOnUse"
           gradientTransform="translate(12 12.1824) rotate(90) scale(12 1.72668)"
         >
-          <stop offset="0.145833" stopColor="white" />
-          <stop offset="1" stopColor="white" stopOpacity="0" />
+          <stop offset="0.145833" stopColor="#7b635a" />
+          <stop offset="1" stopColor="#7b635a" stopOpacity="0" />
         </radialGradient>
       </defs>
     </svg>

@@ -22,6 +22,6 @@ const MouseParticles = dynamic(
 
 export default function ParticlesCursor() {
   return (
-    <MouseParticles g={1} num={6} color="#ef8644" cull="nav,footer" level={6} />
+    <MouseParticles g={1} num={6} color="#50362F" cull="nav,footer" level={6} />
   );
 }
