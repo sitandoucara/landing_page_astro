@@ -1,40 +1,43 @@
 "use client";
 
 import Image from "next/image";
-
 import { PiMoonStarsFill } from "react-icons/pi";
-//import { PiSunFill } from "react-icons/pi";
+import { useState } from "react";
 
 export default function Main2() {
+  const [activeTab, setActiveTab] = useState<"chart" | "home">("chart");
+
+  const mockupSrc =
+    activeTab === "chart"
+      ? "/assets/mockup_chart.png"
+      : "/assets/mockup_home.png";
+
+  const zodiacSrc =
+    activeTab === "chart" ? "/assets/zodiac_ligtht.png" : "/assets/daily.png";
+
   return (
     <div className="relative min-h-screen grid grid-rows-[auto_1fr_auto] bg-[#f2eae0] overflow-hidden grain-overlay">
-      {/*Nav*/}
-
+      {/* NAV */}
       <nav className="flex border-b z-2 border-[#7b635a] justify-between items-center p-4">
-        {/*<h1 className="text-2xl font-bold font-carattere text-[#EED1B4] drop-shadow-[0_0_10px_rgba(239,134,68,0.5)]">
-                AstroMood
-              </h1>*/}
         <h1 className="text-2xl font-bold font-carattere text-[#7b635a] drop-shadow-[0_0_10px_rgba(239,134,68,0.5)]">
           AstroMood
         </h1>
-
-        <div className="flex  items-center gap-4">
+        <div className="flex items-center gap-4">
           <button
             aria-label="Toggle dark mode"
             className="text-white text-2xl p-2 rounded-full hover:bg-[#331c60]/30 transition"
           >
             <PiMoonStarsFill className="cursor-pointer text-[#7b635a]" />
           </button>
-
-          <button className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-[#7b635a]  text-sm sm:text-base font-bold flex items-center justify-center text-[#EED1B4] drop-shadow-[0_0_10px_rgba(239,134,68,0.5)] hover:bg-[#331c60] transition">
+          <button className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-[#7b635a] text-sm sm:text-base font-bold flex items-center justify-center text-[#EED1B4] hover:bg-[#331c60] transition">
             EN
           </button>
         </div>
       </nav>
-      {/*Header*/}
 
-      <div className="grid p-2  z-2 gap-15 grid-cols-1 md:grid-cols-[0.8fr_1fr] items-center justify-center justify-items-center">
-        {/* Texte à gauche */}
+      {/* HEADER */}
+      <div className="grid p-2 z-2 gap-15 grid-cols-1 md:grid-cols-[0.8fr_1fr] items-center justify-center justify-items-center">
+        {/* Texte */}
         <div className="text-center md:text-left">
           <h1 className="md:text-[2.5rem] text-2xl font-extrabold text-[#7b635a] drop-shadow-[0_0_10px_rgba(239,134,68,0.5)] leading-tight">
             AstroMood app <br /> Connectée à tes étoiles
@@ -58,30 +61,42 @@ export default function Main2() {
             />
           </div>
         </div>
-        {/* Image à droite */}
+
+        {/* IMAGE ZONE */}
         <div className="relative z-3 w-[400px] h-[400px] md:w-[600px] md:h-[600px]">
           <Image
-            src="/assets/zodiac_ligtht.png"
+            src={zodiacSrc}
             alt="Astro background"
             fill
-            className="object-contain"
+            className="object-contain transition-all duration-700 ease-in-out"
           />
+
+          {/* Mockup */}
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
             <Image
-              src="/assets/phone.webp"
+              src={mockupSrc}
               alt="Phone"
-              width={250}
-              height={250}
+              width={280}
+              height={280}
+              className="transition-all duration-700 ease-in-out"
+            />
+
+            {/* Boutons fake interaction */}
+            <div
+              className="absolute bottom-[42px] left-[36px] w-[25px] h-[25px] bg-pink-500 opacity-40 cursor-pointer rounded"
+              onClick={() => setActiveTab("home")}
+            />
+            <div
+              className="absolute bottom-[42px] left-[80px] w-[25px] h-[25px] bg-pink-500 opacity-40 cursor-pointer rounded"
+              onClick={() => setActiveTab("chart")}
             />
           </div>
         </div>
       </div>
 
-      {/*Footer*/}
-      <div className=" border-[#7b635a] z-2 border-t mt-2 ">
-        {/* fond décoratif flouté */}
-        {/* contenu visible */}
-        <div className="flex  gap-2 text-[#7b635a] justify-center md:justify-between items-center h-full px-6 py-4  text-sm">
+      {/* FOOTER */}
+      <div className="border-[#7b635a] z-2 border-t mt-2">
+        <div className="flex gap-2 text-[#7b635a] justify-center md:justify-between items-center h-full px-6 py-4 text-sm">
           <p>© 2025 AstroMood. All rights reserved.</p>
           <p>Built by Si_Graph</p>
           <p>Privacy Policy</p>
