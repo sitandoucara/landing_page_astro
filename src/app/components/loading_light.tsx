@@ -3,9 +3,14 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 
-export default function Loading2() {
+export default function LoadingLight({ language }: { language: "en" | "fr" }) {
   const [startExit, setStartExit] = useState(false);
   const [hidden, setHidden] = useState(false);
+
+  const texts = {
+    en: "Welcome to AstroMood",
+    fr: "Bienvenue sur AstroMood",
+  };
 
   useEffect(() => {
     const timer1 = setTimeout(() => setStartExit(true), 900);
@@ -54,8 +59,8 @@ export default function Loading2() {
                 startExit ? "opacity-0" : "opacity-100"
               }`}
             >
-              <h1 className="text-xl sm:text-3xl text-center font-bold text-[#7b635a] drop-shadow-[0_0_10px_rgba(239,134,68,0.6)]">
-                Welcome to AstroMood
+              <h1 className="text-xl sm:text-2xl text-center font-bold bg-[#f2eae0] p-2 border-1 rounded-2xl text-[#7b635a] drop-shadow-[0_0_10px_#795c5299]">
+                {texts[language]}
               </h1>
             </div>
           </div>
