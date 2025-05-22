@@ -1,26 +1,40 @@
 "use client";
 
 import Image from "next/image";
-import { PiMoonStarsFill } from "react-icons/pi";
+import { PiMoonStarsFill, PiSunDimFill } from "react-icons/pi";
 import { useState } from "react";
 import StarGlow from "./StarGlow";
 
 export default function Main2({
   language,
   setLanguage,
+  theme,
+  toggleTheme,
 }: {
   language: "en" | "fr";
   setLanguage: (lang: "en" | "fr") => void;
+  theme: "light" | "dark";
+  toggleTheme: () => void;
 }) {
   const [activeTab, setActiveTab] = useState<"chart" | "home">("chart");
 
   const mockupSrc =
-    activeTab === "chart"
+    theme === "dark"
+      ? activeTab === "chart"
+        ? "/assets/dark/mockup_home_dark.png"
+        : "/assets/dark/mockup_chart_dark.png"
+      : activeTab === "chart"
       ? "/assets/mockup_chart.png"
       : "/assets/mockup_home.png";
 
   const zodiacSrc =
-    activeTab === "chart" ? "/assets/zodiac_ligtht.png" : "/assets/daily.png";
+    theme === "dark"
+      ? activeTab === "chart"
+        ? "/assets/dark/zodiac_dark.png"
+        : "/assets/dark/daily_dark.png"
+      : activeTab === "chart"
+      ? "/assets/zodiac_ligtht.png"
+      : "/assets/daily.png";
 
   const texts = {
     en: {
@@ -56,20 +70,41 @@ export default function Main2({
     },
   };
 
+  const isDark = theme === "dark";
+  const textColor = isDark ? "text-[#F2EAE0]" : "text-[#7b635a]";
+  const hoverColor = isDark ? "hover:text-[#bfaea2]" : "hover:text-[#32221E]";
+  const bgColor = isDark ? "bg-[#281109]" : "bg-[#f2eae0]";
+  const borderColor = isDark ? "border-[#F2EAE0]" : "border-[#7b635a]";
+
   return (
-    <div className="relative min-h-screen grid grid-rows-[auto_1fr_auto]  overflow-hidden grain-overlay">
+    <div
+      className={`relative min-h-screen grid grid-rows-[auto_1fr_auto] overflow-hidden grain-overlay transition-all duration-500 ${bgColor}`}
+    >
       {/* NAV */}
-      <nav className="flex border-b z-2 border-[#7b635a] justify-between items-center p-4">
-        <h1 className="text-2xl font-bold text-[#7b635a] drop-shadow-[0_0_10px_#795c5299]">
+      <nav
+        className={`flex z-2 justify-between items-center p-4 border-b transition-all duration-500 ${borderColor}`}
+      >
+        <h1
+          className={`text-2xl font-bold drop-shadow-[0_0_10px_#795c5299] ${textColor}`}
+        >
           AstroMood
         </h1>
+
         <div className="flex items-center gap-2">
-          <button aria-label="Toggle dark mode">
-            <PiMoonStarsFill className="cursor-pointer text-2xl text-[#7b635a] transition hover:text-[#32221E]" />
+          <button onClick={toggleTheme} aria-label="Toggle theme">
+            {theme === "light" ? (
+              <PiMoonStarsFill
+                className={`cursor-pointer text-2xl ${textColor} transition ${hoverColor}`}
+              />
+            ) : (
+              <PiSunDimFill
+                className={`cursor-pointer text-2xl ${textColor} transition ${hoverColor}`}
+              />
+            )}
           </button>
           <button
             onClick={() => setLanguage(language === "en" ? "fr" : "en")}
-            className="sm:w-12 sm:h-12 text-[#7b635a] text-sm sm:text-base font-bold flex items-center justify-center hover:text-[#32221E] transition"
+            className={`sm:w-12 sm:h-12 text-sm sm:text-base font-bold flex items-center justify-center transition ${textColor} ${hoverColor}`}
           >
             {texts[language].lang}
           </button>
@@ -79,13 +114,17 @@ export default function Main2({
       {/* HEADER */}
       <div className="grid p-2 z-2 gap-15 grid-cols-1 md:grid-cols-[0.8fr_1fr] items-center justify-center justify-items-center">
         <div className="text-center md:text-left">
-          <h1 className="md:text-[2.5rem] text-2xl font-extrabold text-[#7b635a] drop-shadow-[0_0_10px_#795c5299] leading-tight whitespace-pre-line">
+          <h1
+            className={`md:text-[2.5rem] text-2xl font-extrabold drop-shadow-[0_0_10px_#795c5299] leading-tight whitespace-pre-line transition-all duration-500 ${textColor}`}
+          >
             {texts[language].title}
           </h1>
 
           <div className="flex gap-2 mt-4">
             <StarGlow />
-            <p className="text-lg italic text-[#7b635a] drop-shadow-[0_0_6px_rgba(255,191,150,0.4)] transition-all duration-500">
+            <p
+              className={`text-lg italic drop-shadow-[0_0_6px_rgba(255,191,150,0.4)] transition-all duration-500 ${textColor}`}
+            >
               {texts[language].subtitle}
             </p>
             <StarGlow />
@@ -143,8 +182,12 @@ export default function Main2({
       </div>
 
       {/* FOOTER */}
-      <div className="border-[#7b635a] z-2 border-t mt-2">
-        <div className="flex gap-2 text-[#7b635a] justify-center md:justify-between items-center h-full px-6 py-4 text-sm">
+      <div
+        className={`z-2 border-t mt-2 transition-all duration-500 ${borderColor}`}
+      >
+        <div
+          className={`flex gap-2 justify-center md:justify-between items-center h-full px-6 py-4 text-sm transition-all duration-500 ${textColor}`}
+        >
           <p>{footerTexts[language].rights}</p>
           <p>{footerTexts[language].built}</p>
           <p>{footerTexts[language].privacy}</p>
