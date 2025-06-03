@@ -40,7 +40,7 @@ export default function Home() {
   }, [pendingTheme]);
 
   return (
-    <div className="min-h-screen  relative overflow-hidden grain-overlay">
+    <div className="min-h-screen  relative  grain-overlay">
       <ParticlesCursor />
 
       <Main2
