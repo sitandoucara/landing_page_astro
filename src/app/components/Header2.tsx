@@ -1,9 +1,8 @@
+// components/Header2.tsx
 "use client";
 
 import Image from "next/image";
-import { PiMoonStarsFill, PiSunDimFill } from "react-icons/pi";
 import { useRef, useState } from "react";
-
 import {
   useScroll,
   useTransform,
@@ -11,21 +10,13 @@ import {
   useMotionValueEvent,
   MotionValue,
 } from "framer-motion";
-//import StarGlow from "./StarGlow";
 
-export default function Main2({
-  language,
-  setLanguage,
-  theme,
-  toggleTheme,
-}: {
+interface Header2Props {
   language: "en" | "fr";
-  setLanguage: (lang: "en" | "fr") => void;
   theme: "light" | "dark";
-  toggleTheme: () => void;
-}) {
-  /*-----scroll animation-----*/
+}
 
+export default function Header2({ language, theme }: Header2Props) {
   const containerRef = useRef(null);
 
   const { scrollYProgress } = useScroll({
@@ -35,6 +26,7 @@ export default function Main2({
 
   const marginTop = useTransform(scrollYProgress, [0.3, 0.6], [8, 128]);
 
+  // Custom hook pour gérer l'affichage
   function useDisplay(opacity: MotionValue<unknown>) {
     const [display, setDisplay] = useState<"block" | "none">("none");
 
@@ -49,6 +41,11 @@ export default function Main2({
     return display;
   }
 
+  const [activeTab, setActiveTab] = useState<
+    "chart" | "home" | "compatibility"
+  >("chart");
+
+  // Gestion du changement d'onglet basé sur le scroll
   useMotionValueEvent(scrollYProgress, "change", (latest) => {
     if (latest > 0.6 && activeTab !== "compatibility") {
       setActiveTab("compatibility");
@@ -109,12 +106,6 @@ export default function Main2({
     opacityMockupCompatibility as MotionValue<unknown>
   );
 
-  /*----dark/light---------*/
-
-  const [activeTab, setActiveTab] = useState<
-    "chart" | "home" | "compatibility"
-  >("chart");
-
   const texts = {
     en: {
       title: "AstroMood app\nConnected to your stars",
@@ -122,7 +113,10 @@ export default function Main2({
         activeTab === "chart"
           ? "Discover more about your natal chart"
           : "Daily affirmations & horoscope",
-      lang: "FR",
+      homeText:
+        "Your daily ritual, aligned with the universe Start each day with personalized horoscopes and powerful affirmations to guide your mood and mindset. AstroMood brings you simple, uplifting guidance that keeps you grounded and glowing—every single day.",
+      compatibilityText:
+        "Are your vibes in sync? Discover the true potential of your connections—romantic, professional, or friendly. AstroMood's compatibility insights help you understand who energizes you, who challenges you, and how to navigate every bond with clarity and heart.",
     },
     fr: {
       title: "AstroMood L'app\nConnectée à tes étoiles",
@@ -130,70 +124,21 @@ export default function Main2({
         activeTab === "chart"
           ? "Découvrer plus sur votre chart natal"
           : "Affirmation & Horoscope régulier",
-      lang: "EN",
-    },
-  };
-
-  const footerTexts = {
-    en: {
-      rights: "© 2025 AstroMood. All rights reserved.",
-      built: "Built by Si_Graph",
-      privacy: "Privacy Policy",
-      terms: "Terms and Conditions",
-    },
-    fr: {
-      rights: "© 2025 AstroMood. Tous droits réservés.",
-      built: "Conçu par Si_Graph",
-      privacy: "Politique de confidentialité",
-      terms: "Conditions générales",
+      homeText:
+        "Votre rituel quotidien, aligné avec l'univers. Commencez chaque journée avec des horoscopes personnalisés et des affirmations puissantes pour guider votre humeur et votre état d'esprit. AstroMood vous apporte des conseils simples et édifiants qui vous gardent ancré et rayonnant—chaque jour.",
+      compatibilityText:
+        "Vos vibrations sont-elles synchronisées? Découvrez le véritable potentiel de vos connexions—romantiques, professionnelles ou amicales. Les insights de compatibilité d'AstroMood vous aident à comprendre qui vous énergise, qui vous défie, et comment naviguer chaque lien avec clarté et cœur.",
     },
   };
 
   const isDark = theme === "dark";
   const textColor = isDark ? "text-[#F2EAE0]" : "text-[#7b635a]";
-  const hoverColor = isDark ? "hover:text-[#bfaea2]" : "hover:text-[#32221E]";
-  const bgColor = isDark ? "bg-[#281109]" : "bg-[#f2eae0]";
-  const borderColor = isDark ? "border-[#F2EAE0]" : "border-[#7b635a]";
 
   return (
     <div ref={containerRef} className="min-h-[200vh] relative">
-      <div
-        ref={containerRef}
-        className={`sticky top-0 min-h-screen grid grid-rows-[auto_1fr_auto] overflow-hidden grain-overlay transition-all duration-500 ${bgColor}`}
-      >
-        {/* NAV */}
-        <nav
-          className={`flex z-2 justify-between items-center p-4 border-b transition-all duration-500 ${borderColor}`}
-        >
-          <h1
-            className={`text-2xl font-bold drop-shadow-[0_0_10px_#795c5299] ${textColor}`}
-          >
-            AstroMood
-          </h1>
-
-          <div className="flex items-center gap-2">
-            <button onClick={toggleTheme} aria-label="Toggle theme">
-              {theme === "light" ? (
-                <PiMoonStarsFill
-                  className={`cursor-pointer text-2xl ${textColor} transition ${hoverColor}`}
-                />
-              ) : (
-                <PiSunDimFill
-                  className={`cursor-pointer text-2xl ${textColor} transition ${hoverColor}`}
-                />
-              )}
-            </button>
-            <button
-              onClick={() => setLanguage(language === "en" ? "fr" : "en")}
-              className={`sm:w-12 sm:h-12 text-sm sm:text-base font-bold flex items-center justify-center transition ${textColor} ${hoverColor}`}
-            >
-              {texts[language].lang}
-            </button>
-          </div>
-        </nav>
-        {/* HEADER */}
-        <div className="grid p-2 z-2 gap-15 grid-cols-1 md:grid-cols-[0.8fr_1fr] items-center justify-center justify-items-center">
-          <div className="grid  grid-rows-[1fr_1fr] gap-1  items-baseline ">
+      <div className="sticky top-0 min-h-screen">
+        <section className="min-h-screen grid grid-cols-1 md:grid-cols-[0.8fr_1fr] items-center justify-center justify-items-center p-4">
+          <div className="grid grid-rows-[1fr_1fr] gap-1 items-baseline">
             <div className="text">
               <motion.h1
                 className={`md:text-[2.5rem] text-2xl font-extrabold drop-shadow-[0_0_10px_#795c5299] leading-tight whitespace-pre-line transition-all duration-500 ${textColor}`}
@@ -214,24 +159,17 @@ export default function Main2({
               </motion.p>
 
               <motion.p
-                className={`text-lg  mt-4 ${textColor}`}
+                className={`text-lg mt-4 ${textColor}`}
                 style={{ opacity: opacityHome, display: displayHome }}
               >
-                Your daily ritual, aligned with the universe Start each day with
-                personalized horoscopes and powerful affirmations to guide your
-                mood and mindset. AstroMood brings you simple, uplifting
-                guidance that keeps you grounded and glowing—every single day.
+                {texts[language].homeText}
               </motion.p>
 
               <motion.p
                 className={`text-lg mt-4 drop-shadow-[0_0_6px_rgba(255,191,150,0.4)] ${textColor}`}
                 style={{ opacity: opacityComp, display: displayComp }}
               >
-                Are your vibes in sync? Discover the true potential of your
-                connections—romantic, professional, or friendly. AstroMood’s
-                compatibility insights help you understand who energizes you,
-                who challenges you, and how to navigate every bond with clarity
-                and heart.
+                {texts[language].compatibilityText}
               </motion.p>
             </div>
 
@@ -254,6 +192,7 @@ export default function Main2({
 
           {/* IMAGE ZONE */}
           <div className="relative z-3 w-[400px] h-[400px] md:w-[600px] md:h-[600px]">
+            {/* Zodiac CHART */}
             <motion.div
               className="absolute inset-0"
               style={{
@@ -293,6 +232,7 @@ export default function Main2({
               />
             </motion.div>
 
+            {/* Zodiac COMPATIBILITY */}
             <motion.div
               className="absolute inset-0"
               style={{
@@ -311,8 +251,7 @@ export default function Main2({
                 className="object-contain animate-float-x"
               />
             </motion.div>
-            {/* Mockup 
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">*/}
+
             {/* MOCKUP CHART */}
             <motion.div
               className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
@@ -350,6 +289,7 @@ export default function Main2({
               />
             </motion.div>
 
+            {/* MOCKUP COMPATIBILITY */}
             <motion.div
               className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
               style={{
@@ -368,32 +308,8 @@ export default function Main2({
                 height={300}
               />
             </motion.div>
-
-            {/* Fake interaction buttons 
-              <div
-                className="absolute bottom-[44px] left-[42px] w-[25px] h-[25px] opacity-40 cursor-pointer"
-                onClick={() => setActiveTab("home")}
-              />
-              <div
-                className="absolute bottom-[44px] left-[88px] w-[25px] h-[25px] opacity-40 cursor-pointer"
-                onClick={() => setActiveTab("chart")}
-              />
-            </div>*/}
           </div>
-        </div>
-        {/* FOOTER */}
-        <div
-          className={`z-2 border-t mt-2 transition-all duration-500 ${borderColor}`}
-        >
-          <div
-            className={`flex gap-2 justify-center md:justify-between items-center h-full px-6 py-4 text-sm transition-all duration-500 ${textColor}`}
-          >
-            <p>{footerTexts[language].rights}</p>
-            <p>{footerTexts[language].built}</p>
-            <p>{footerTexts[language].privacy}</p>
-            <p>{footerTexts[language].terms}</p>
-          </div>
-        </div>
+        </section>
       </div>
     </div>
   );

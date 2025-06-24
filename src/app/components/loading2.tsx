@@ -20,7 +20,7 @@ export default function Loading2({
   const textColor = isDark ? "#F2EAE0" : "#7b635a";
   const imageSrc = isDark
     ? "/assets/dark/zodiac_dark.png"
-    : "/assets/zodiac_ligtht.png";
+    : "/assets/light/zodiac_ligtht.png";
 
   const texts = {
     en: "Welcome to AstroMood",

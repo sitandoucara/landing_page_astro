@@ -1,7 +1,11 @@
+// page.tsx
 "use client";
 
 import { useState, useEffect } from "react";
-import Main2 from "./components/main2";
+import Navbar from "./components/Navbar";
+import Header from "./components/Header";
+import Header2 from "./components/Header2";
+import Footer from "./components/footer";
 import Loading2 from "./components/loading2";
 import ParticlesCursor from "./components/particles-cursor";
 
@@ -39,17 +43,33 @@ export default function Home() {
     };
   }, [pendingTheme]);
 
+  const isDark = theme === "dark";
+  const bgColor = isDark ? "bg-[#281109]" : "bg-[#f2eae0]";
+
   return (
-    <div className="min-h-screen  relative  grain-overlay">
+    <div
+      className={`min-h-screen relative grain-overlay transition-all duration-500 ${bgColor}`}
+    >
       <ParticlesCursor />
 
-      <Main2
+      {/* Navigation fixe */}
+      <Navbar
         language={language}
         setLanguage={setLanguage}
         theme={theme}
         toggleTheme={toggleTheme}
       />
 
+      {/* Header 1 - Section d'accueil */}
+      <Header language={language} theme={theme} />
+
+      {/* Header 2 - Section avec animations au scroll */}
+      <Header2 language={language} theme={theme} />
+
+      {/* Footer */}
+      <Footer language={language} theme={theme} />
+
+      {/* Loading overlay */}
       {showLoading && (
         <div className="absolute inset-0 z-[100] pointer-events-none">
           <Loading2 language={language} theme={pendingTheme ?? theme} />
