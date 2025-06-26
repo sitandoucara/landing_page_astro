@@ -20,7 +20,7 @@ export default function Loading2({
   const textColor = isDark ? "#F2EAE0" : "#7b635a";
   const imageSrc = isDark
     ? "/assets/dark/zodiac_dark.png"
-    : "/assets/light/zodiac_ligtht.png";
+    : "/assets/light/zodiac_ligtht2.png";
 
   const texts = {
     en: "Welcome to AstroMood",
@@ -62,7 +62,7 @@ export default function Loading2({
         >
           <div
             className="absolute top-1/2 left-0 -translate-x-1/2 -translate-y-1/2 h-[60vh] w-[60vh] rounded-full border-[3px]  z-2  p-4"
-            style={{ backgroundColor: bgColor, borderColor }}
+            style={{ backgroundColor: bgColor }}
           >
             <Image
               src={imageSrc}

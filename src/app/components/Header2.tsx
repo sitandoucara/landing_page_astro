@@ -48,7 +48,7 @@ export default function Header2({ language, theme }: Header2Props) {
 
   // Custom hook pour gérer l'affichage avec transition plus fluide
   function useDisplay(opacity: MotionValue<unknown>) {
-    const [display, setDisplay] = useState<"block" | "none">("none");
+    const [display, setDisplay] = useState<"block" | "none">("block"); // COMMENCE PAR "block"
 
     useMotionValueEvent(opacity, "change", (v) => {
       if (typeof v === "number" && v <= 0.05) {
@@ -311,7 +311,7 @@ export default function Header2({ language, theme }: Header2Props) {
           </div>
 
           {/* IMAGE ZONE avec animations améliorées */}
-          <div className="relative z-3 w-[400px] h-[400px] md:w-[600px] md:h-[600px]">
+          <div className="relative z-3 w-[400px] h-[400px] md:w-[600px] md:h-[600px] overflow-hidden">
             {/* Zodiac DAILY - Premier */}
             <motion.div
               className="absolute inset-0"
@@ -366,13 +366,7 @@ export default function Header2({ language, theme }: Header2Props) {
               }}
             >
               {bookAnimationData && (
-                <div
-                  style={{
-                    filter: isDark
-                      ? "sepia(1) saturate(1.5) hue-rotate(30deg) brightness(0.9) contrast(1.1)" // Beige chaud pour dark
-                      : "sepia(1) saturate(2) hue-rotate(15deg) brightness(0.6) contrast(1.2)", // Marron riche pour light
-                  }}
-                >
+                <div>
                   <Lottie
                     animationData={bookAnimationData}
                     loop={true}
@@ -397,13 +391,7 @@ export default function Header2({ language, theme }: Header2Props) {
               }}
             >
               {quizzAnimationData && (
-                <div
-                  style={{
-                    filter: isDark
-                      ? "sepia(1) saturate(1.5) hue-rotate(30deg) brightness(0.9) contrast(1.1)" // Beige chaud pour dark
-                      : "sepia(1) saturate(2) hue-rotate(15deg) brightness(0.6) contrast(1.2)", // Marron riche pour light
-                  }}
-                >
+                <div>
                   <Lottie
                     animationData={quizzAnimationData}
                     loop={true}
