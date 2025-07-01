@@ -1,79 +1,109 @@
+// src/app/page.tsx - Page d'accueil avec choix
 "use client";
 
-import { useState, useEffect } from "react";
-import Navbar from "./components/Navbar";
-import Header from "./components/Header";
-import Header2 from "./components/Header2";
-import Footer from "./components/Footer";
-import Loading2 from "./components/loading2";
-import ParticlesCursor from "./components/particles-cursor";
+import { useState } from "react";
+import Link from "next/link";
+import { PiMoonStarsFill, PiSunDimFill } from "react-icons/pi";
+import { FiSettings, FiGlobe } from "react-icons/fi";
 
-export default function Home() {
-  const [showLoading, setShowLoading] = useState(true);
-  const [language, setLanguage] = useState<"en" | "fr">("en");
+export default function HomePage() {
   const [theme, setTheme] = useState<"light" | "dark">("light");
-  const [pendingTheme, setPendingTheme] = useState<"light" | "dark" | null>(
-    null
-  );
-
-  const toggleTheme = () => {
-    const newTheme = theme === "light" ? "dark" : "light";
-    setPendingTheme(newTheme);
-    setShowLoading(true);
-  };
-
-  useEffect(() => {
-    let themeTimer: ReturnType<typeof setTimeout> | null = null;
-    let hideTimer: ReturnType<typeof setTimeout> | null = null;
-
-    if (pendingTheme) {
-      themeTimer = setTimeout(() => {
-        setTheme(pendingTheme);
-      }, 100);
-    }
-    hideTimer = setTimeout(() => {
-      setShowLoading(false);
-      setPendingTheme(null);
-    }, 4000);
-
-    return () => {
-      if (themeTimer) clearTimeout(themeTimer);
-      if (hideTimer) clearTimeout(hideTimer);
-    };
-  }, [pendingTheme]);
 
   const isDark = theme === "dark";
   const bgColor = isDark ? "bg-[#281109]" : "bg-[#f2eae0]";
+  const textColor = isDark ? "text-[#F2EAE0]" : "text-[#7b635a]";
+  const cardBg = isDark ? "bg-[#3D2918]" : "bg-white";
+  const borderColor = isDark ? "border-[#F2EAE0]/20" : "border-[#7b635a]/20";
+
+  const toggleTheme = () => {
+    setTheme(theme === "light" ? "dark" : "light");
+  };
 
   return (
     <div
-      className={`min-h-screen relative grain-overlay transition-all duration-500 ${bgColor}`}
+      className={`min-h-screen transition-all duration-500 ${bgColor} flex items-center justify-center p-8`}
     >
-      <ParticlesCursor />
+      {/* Theme Toggle */}
+      <button
+        onClick={toggleTheme}
+        className={`absolute top-6 right-6 p-3 rounded-full ${cardBg} border ${borderColor} hover:opacity-80 transition`}
+      >
+        {theme === "light" ? (
+          <PiMoonStarsFill className={`text-2xl ${textColor}`} />
+        ) : (
+          <PiSunDimFill className={`text-2xl ${textColor}`} />
+        )}
+      </button>
 
-      {/* Navigation fixe */}
-      <Navbar
-        language={language}
-        setLanguage={setLanguage}
-        theme={theme}
-        toggleTheme={toggleTheme}
-      />
+      <div className="max-w-2xl w-full text-center">
+        {/* Logo/Title */}
+        <h1
+          className={`text-6xl font-extrabold mb-4 drop-shadow-[0_0_10px_#795c5299] ${textColor}`}
+        >
+          My AstroMood
+        </h1>
+        <p className={`text-xl mb-12 opacity-80 ${textColor}`}>
+          Choose your destination
+        </p>
 
-      {/* Header 1 - Section d'accueil */}
-      <Header language={language} theme={theme} />
+        {/* Navigation Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          {/* Landing Page Card */}
+          <Link href="/landing" className="group">
+            <div
+              className={`p-8 rounded-2xl ${cardBg} border ${borderColor} hover:scale-105 transition-all duration-300 hover:shadow-2xl`}
+            >
+              <div
+                className={`w-16 h-16 mx-auto mb-6 rounded-full ${
+                  isDark ? "bg-[#BFB0A7]" : "bg-[#7b635a]"
+                } flex items-center justify-center group-hover:scale-110 transition-transform`}
+              >
+                <FiGlobe
+                  className={`text-2xl ${
+                    isDark ? "text-[#281109]" : "text-white"
+                  }`}
+                />
+              </div>
+              <h2 className={`text-2xl font-bold mb-3 ${textColor}`}>
+                Landing Page
+              </h2>
+              <p className={`${textColor} opacity-70`}>
+                Discover AstroMood s features and download the app
+              </p>
+            </div>
+          </Link>
 
-      {/* Header 2 - Section avec animations au scroll */}
-      <Header2 language={language} theme={theme} />
-
-      {/* Footer */}
-      <Footer language={language} theme={theme} />
-
-      {/* Loading overlay */}
-      {showLoading && (
-        <div className="absolute inset-0 z-[100] pointer-events-none">
-          <Loading2 language={language} theme={pendingTheme ?? theme} />
+          {/* Admin Panel Card */}
+          <Link href="/admin" className="group">
+            <div
+              className={`p-8 rounded-2xl ${cardBg} border ${borderColor} hover:scale-105 transition-all duration-300 hover:shadow-2xl`}
+            >
+              <div
+                className={`w-16 h-16 mx-auto mb-6 rounded-full ${
+                  isDark ? "bg-[#BFB0A7]" : "bg-[#7b635a]"
+                } flex items-center justify-center group-hover:scale-110 transition-transform`}
+              >
+                <FiSettings
+                  className={`text-2xl ${
+                    isDark ? "text-[#281109]" : "text-white"
+                  }`}
+                />
+              </div>
+              <h2 className={`text-2xl font-bold mb-3 ${textColor}`}>
+                Admin Panel
+              </h2>
+              <p className={`${textColor} opacity-70`}>
+                Manage app content and user experience
+              </p>
+            </div>
+          </Link>
         </div>
-      )}
+
+        {/* Footer */}
+        <p className={`mt-12 text-sm opacity-60 ${textColor}`}>
+          © 2025 My AstroMood
+        </p>
+      </div>
     </div>
   );
 }
