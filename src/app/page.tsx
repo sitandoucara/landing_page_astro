@@ -74,7 +74,7 @@ export default function HomePage() {
           </Link>
 
           {/* Admin Panel Card */}
-          <Link href="/admin" className="group">
+          <Link href="/admin/dashboard" className="group">
             <div
               className={`p-8 rounded-2xl ${cardBg} border ${borderColor} hover:scale-105 transition-all duration-300 hover:shadow-2xl`}
             >

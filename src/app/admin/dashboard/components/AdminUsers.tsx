@@ -94,7 +94,7 @@ export default function AdminUsers({
     if ((month === 2 && day >= 19) || (month === 3 && day <= 20))
       return "Pisces";
 
-    return "Cancer"; // Fallback
+    return "Cancer";
   }
 
   const fetchUsers = async () => {
