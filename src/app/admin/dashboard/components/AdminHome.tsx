@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
-import { FiSave, FiExternalLink, FiUpload } from "react-icons/fi";
+import { useState, useEffect } from "react";
+import { FiSave, FiExternalLink, FiUpload, FiRefreshCw } from "react-icons/fi";
 
 interface AdminHomeProps {
   isDark: boolean;
@@ -16,18 +16,18 @@ export default function AdminHome({
   cardBg,
   borderColor,
 }: AdminHomeProps) {
-  // Affirmations correspondantes à l'app mobile
   const [affirmations, setAffirmations] = useState({
-    today:
-      "Today's cosmic energy brings new opportunities for growth and self-discovery.",
-    tomorrow:
-      "Tomorrow holds the promise of new beginnings and fresh perspectives.",
-    week: "This week, embrace the changes coming your way with confidence and grace.",
-    month:
-      "The month ahead holds promise for deep personal transformation and renewal.",
+    today: "",
+    tomorrow: "",
+    week: "",
+    month: "",
   });
 
-  // Gestion des phases lunaires avec images
+  const [loading, setLoading] = useState(true);
+  const [saving, setSaving] = useState(false);
+  const [language, setLanguage] = useState("en"); // Tu pourrais le récupérer du contexte global
+
+  // Gestion des phases lunaires
   const [moonPhase, setMoonPhase] = useState("waning-gibbous");
   const [moonImages, setMoonImages] = useState({
     "waning-gibbous":
@@ -44,27 +44,66 @@ export default function AdminHome({
       "https://vaajrvpkjbzyqbxiuzsi.supabase.co/storage/v1/object/public/assets/app/moon.png",
   });
 
-  const handleSaveAffirmations = () => {
-    console.log("Saving affirmations:", affirmations);
-    // Ici tu pourrais sauvegarder dans ta base de données
-    alert("Affirmations saved successfully!");
+  // Charger les affirmations depuis l'API
+  const fetchAffirmations = async () => {
+    setLoading(true);
+    try {
+      const response = await fetch(
+        `/api/admin/affirmations?language=${language}`
+      );
+      if (!response.ok) throw new Error("Failed to fetch affirmations");
+
+      const data = await response.json();
+      setAffirmations(data.affirmations);
+    } catch (error) {
+      console.error("Error fetching affirmations:", error);
+      alert("Failed to load affirmations");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Sauvegarder les affirmations
+  const handleSaveAffirmations = async () => {
+    setSaving(true);
+    try {
+      const response = await fetch("/api/admin/affirmations", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          affirmations,
+          language,
+        }),
+      });
+
+      if (!response.ok) throw new Error("Failed to save affirmations");
+
+      const result = await response.json();
+      alert(
+        `Affirmations saved successfully! Updated: ${result.updated.join(", ")}`
+      );
+    } catch (error) {
+      console.error("Error saving affirmations:", error);
+      alert("Failed to save affirmations");
+    } finally {
+      setSaving(false);
+    }
   };
 
   const handleUpdateMoonPhase = () => {
     console.log("Updating moon phase:", moonPhase);
-    // Ici tu pourrais sauvegarder la phase lunaire
     alert("Moon phase updated successfully!");
   };
 
   const handleImageUpload = (phase: string) => {
-    // Simulation d'upload d'image
     const input = document.createElement("input");
     input.type = "file";
     input.accept = "image/*";
     input.onchange = (e) => {
       const file = (e.target as HTMLInputElement).files?.[0];
       if (file) {
-        // En réalité, tu uploaderais vers Supabase ici
         const fakeUrl = URL.createObjectURL(file);
         setMoonImages((prev) => ({
           ...prev,
@@ -87,13 +126,37 @@ export default function AdminHome({
     });
   };
 
+  // Charger les affirmations au démarrage
+  useEffect(() => {
+    fetchAffirmations();
+  }, [language]);
+
   return (
     <div className="space-y-6">
-      <h2 className={`text-2xl font-bold ${textColor}`}>
-        Home Screen Management
-      </h2>
+      <div className="flex items-center justify-between">
+        <h2 className={`text-2xl font-bold ${textColor}`}>
+          Home Screen Management
+        </h2>
 
-      {/* Horoscope API Status - Version réaliste pour admin */}
+        {/* Language selector */}
+        <div className="flex items-center gap-2">
+          <label className={`text-sm ${textColor}`}>Language:</label>
+          <select
+            value={language}
+            onChange={(e) => setLanguage(e.target.value)}
+            className={`px-3 py-1 rounded border ${
+              isDark
+                ? "bg-[#281109] border-[#F2EAE0]/30"
+                : "bg-white border-gray-300"
+            } ${textColor} text-sm`}
+          >
+            <option value="en">English</option>
+            <option value="fr">Français</option>
+          </select>
+        </div>
+      </div>
+
+      {/* Horoscope API Status */}
       <div className={`p-6 rounded-lg ${cardBg} border ${borderColor}`}>
         <h3 className={`text-lg font-semibold mb-4 ${textColor}`}>
           Horoscope API Monitoring
@@ -148,109 +211,134 @@ export default function AdminHome({
         </div>
       </div>
 
-      {/* Affirmations Management - Correspondant à l'app */}
+      {/* Affirmations Management - Connecté à l'API */}
       <div className={`p-6 rounded-lg ${cardBg} border ${borderColor}`}>
-        <h3 className={`text-lg font-semibold mb-4 ${textColor}`}>
-          Daily Affirmations Management
-        </h3>
+        <div className="flex items-center justify-between mb-4">
+          <h3 className={`text-lg font-semibold ${textColor}`}>
+            Daily Affirmations Management
+          </h3>
 
-        <div className="space-y-4">
-          <div>
-            <label className={`block text-sm mb-2 ${textColor}`}>
-              Today&apos;s Affirmation
-              <span className={`text-xs opacity-70 ml-2`}>
-                ({formatDate(0)})
-              </span>
-            </label>
-            <textarea
-              value={affirmations.today}
-              onChange={(e) =>
-                setAffirmations({ ...affirmations, today: e.target.value })
-              }
-              className={`w-full p-3 rounded border h-20 resize-none ${
-                isDark
-                  ? "bg-[#281109] border-[#F2EAE0]/30"
-                  : "bg-white border-gray-300"
-              } ${textColor}`}
-              placeholder="Enter today's affirmation..."
-            />
-          </div>
-
-          <div>
-            <label className={`block text-sm mb-2 ${textColor}`}>
-              Tomorrow&apos;s Affirmation
-              <span className={`text-xs opacity-70 ml-2`}>
-                ({formatDate(1)})
-              </span>
-            </label>
-            <textarea
-              value={affirmations.tomorrow}
-              onChange={(e) =>
-                setAffirmations({ ...affirmations, tomorrow: e.target.value })
-              }
-              className={`w-full p-3 rounded border h-20 resize-none ${
-                isDark
-                  ? "bg-[#281109] border-[#F2EAE0]/30"
-                  : "bg-white border-gray-300"
-              } ${textColor}`}
-              placeholder="Enter tomorrow's affirmation..."
-            />
-          </div>
-
-          <div>
-            <label className={`block text-sm mb-2 ${textColor}`}>
-              Week Affirmation
-            </label>
-            <textarea
-              value={affirmations.week}
-              onChange={(e) =>
-                setAffirmations({ ...affirmations, week: e.target.value })
-              }
-              className={`w-full p-3 rounded border h-20 resize-none ${
-                isDark
-                  ? "bg-[#281109] border-[#F2EAE0]/30"
-                  : "bg-white border-gray-300"
-              } ${textColor}`}
-              placeholder="Enter weekly affirmation..."
-            />
-          </div>
-
-          <div>
-            <label className={`block text-sm mb-2 ${textColor}`}>
-              Month Affirmation
-            </label>
-            <textarea
-              value={affirmations.month}
-              onChange={(e) =>
-                setAffirmations({ ...affirmations, month: e.target.value })
-              }
-              className={`w-full p-3 rounded border h-20 resize-none ${
-                isDark
-                  ? "bg-[#281109] border-[#F2EAE0]/30"
-                  : "bg-white border-gray-300"
-              } ${textColor}`}
-              placeholder="Enter monthly affirmation..."
-            />
-          </div>
+          <button
+            onClick={fetchAffirmations}
+            disabled={loading}
+            className={`p-2 rounded hover:opacity-70 transition ${textColor}`}
+            title="Refresh affirmations"
+          >
+            <FiRefreshCw className={loading ? "animate-spin" : ""} size={16} />
+          </button>
         </div>
 
-        <button
-          onClick={handleSaveAffirmations}
-          className={`mt-4 px-4 py-2 bg-[#BFB0A7] text-[#281109] rounded hover:opacity-80 transition flex items-center gap-2`}
-        >
-          <FiSave size={16} />
-          Save All Affirmations
-        </button>
+        {loading ? (
+          <div className={`text-center py-8 ${textColor}`}>
+            <FiRefreshCw className="animate-spin mx-auto mb-2" size={24} />
+            <p>Loading affirmations...</p>
+          </div>
+        ) : (
+          <>
+            <div className="space-y-4">
+              <div>
+                <label className={`block text-sm mb-2 ${textColor}`}>
+                  Today&apos;s Affirmation
+                  <span className={`text-xs opacity-70 ml-2`}>
+                    ({formatDate(0)})
+                  </span>
+                </label>
+                <textarea
+                  value={affirmations.today}
+                  onChange={(e) =>
+                    setAffirmations({ ...affirmations, today: e.target.value })
+                  }
+                  className={`w-full p-3 rounded border h-20 resize-none ${
+                    isDark
+                      ? "bg-[#281109] border-[#F2EAE0]/30"
+                      : "bg-white border-gray-300"
+                  } ${textColor}`}
+                  placeholder="Enter today's affirmation..."
+                />
+              </div>
+
+              <div>
+                <label className={`block text-sm mb-2 ${textColor}`}>
+                  Tomorrow&apos;s Affirmation
+                  <span className={`text-xs opacity-70 ml-2`}>
+                    ({formatDate(1)})
+                  </span>
+                </label>
+                <textarea
+                  value={affirmations.tomorrow}
+                  onChange={(e) =>
+                    setAffirmations({
+                      ...affirmations,
+                      tomorrow: e.target.value,
+                    })
+                  }
+                  className={`w-full p-3 rounded border h-20 resize-none ${
+                    isDark
+                      ? "bg-[#281109] border-[#F2EAE0]/30"
+                      : "bg-white border-gray-300"
+                  } ${textColor}`}
+                  placeholder="Enter tomorrow's affirmation..."
+                />
+              </div>
+
+              <div>
+                <label className={`block text-sm mb-2 ${textColor}`}>
+                  Week Affirmation
+                </label>
+                <textarea
+                  value={affirmations.week}
+                  onChange={(e) =>
+                    setAffirmations({ ...affirmations, week: e.target.value })
+                  }
+                  className={`w-full p-3 rounded border h-20 resize-none ${
+                    isDark
+                      ? "bg-[#281109] border-[#F2EAE0]/30"
+                      : "bg-white border-gray-300"
+                  } ${textColor}`}
+                  placeholder="Enter weekly affirmation..."
+                />
+              </div>
+
+              <div>
+                <label className={`block text-sm mb-2 ${textColor}`}>
+                  Month Affirmation
+                </label>
+                <textarea
+                  value={affirmations.month}
+                  onChange={(e) =>
+                    setAffirmations({ ...affirmations, month: e.target.value })
+                  }
+                  className={`w-full p-3 rounded border h-20 resize-none ${
+                    isDark
+                      ? "bg-[#281109] border-[#F2EAE0]/30"
+                      : "bg-white border-gray-300"
+                  } ${textColor}`}
+                  placeholder="Enter monthly affirmation..."
+                />
+              </div>
+            </div>
+
+            <button
+              onClick={handleSaveAffirmations}
+              disabled={saving}
+              className={`mt-4 px-4 py-2 bg-[#BFB0A7] text-[#281109] rounded hover:opacity-80 transition flex items-center gap-2 ${
+                saving ? "opacity-50 cursor-not-allowed" : ""
+              }`}
+            >
+              <FiSave size={16} />
+              {saving ? "Saving..." : "Save All Affirmations"}
+            </button>
+          </>
+        )}
       </div>
 
-      {/* Moon Phase & Images Management */}
+      {/* Moon Phase Management - Inchangé */}
       <div className={`p-6 rounded-lg ${cardBg} border ${borderColor}`}>
         <h3 className={`text-lg font-semibold mb-4 ${textColor}`}>
           Moon Phase Management
         </h3>
 
         <div className="grid grid-cols-2 gap-6">
-          {/* Current Phase Selection */}
           <div>
             <label className={`block text-sm mb-2 ${textColor}`}>
               Current Moon Phase
@@ -280,7 +368,6 @@ export default function AdminHome({
             </button>
           </div>
 
-          {/* Current Phase Preview */}
           <div>
             <label className={`block text-sm mb-2 ${textColor}`}>
               Current Phase Preview
@@ -302,7 +389,6 @@ export default function AdminHome({
           </div>
         </div>
 
-        {/* Moon Images Management */}
         <div className="mt-6">
           <h4 className={`text-md font-semibold mb-3 ${textColor}`}>
             Moon Phase Images
