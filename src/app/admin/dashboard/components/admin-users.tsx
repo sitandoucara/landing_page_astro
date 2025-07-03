@@ -55,7 +55,6 @@ export default function AdminUsers({
   const [searchTerm, setSearchTerm] = useState("");
   const [showRoleActions, setShowRoleActions] = useState<string | null>(null);
 
-  // Stats calculées depuis les vraies données
   const userStats = {
     totalUsers: users.length,
     adminUsers: users.filter((user) => user.role === "admin").length,
@@ -85,7 +84,7 @@ export default function AdminUsers({
     const month = date.getMonth() + 1;
     const day = date.getDate();
 
-    // Logique pour déterminer le signe zodiacal
+    // Logic to determine the zodiac sign
     if ((month === 3 && day >= 21) || (month === 4 && day <= 19))
       return "Aries";
     if ((month === 4 && day >= 20) || (month === 5 && day <= 20))
@@ -129,8 +128,7 @@ export default function AdminUsers({
 
       const data = await response.json();
 
-      // Transformer les données Supabase en format utilisable
-
+      // Transform Supabase data into usable format
       const transformedUsers: User[] = (data.users as RawSupabaseUser[]).map(
         (user) => ({
           id: user.id,
@@ -172,7 +170,7 @@ export default function AdminUsers({
         throw new Error("Failed to update user role");
       }
 
-      // Mettre à jour localement
+      // Update locally
       setUsers((prev) =>
         prev.map((user) =>
           user.id === userId
@@ -232,7 +230,7 @@ export default function AdminUsers({
           <div className="flex items-center gap-3 mb-2">
             <div
               className={`p-2 rounded ${
-                isDark ? "bg-orange-900/20" : "bg-orange-50"
+                isDark ? "bg-orange-900/20" : "bg-[#7B635A]"
               }`}
             >
               <FiUsers className="text-[#BFB0A7]" size={20} />
@@ -244,16 +242,13 @@ export default function AdminUsers({
               <div className={`text-sm ${textColor}`}>Total Users</div>
             </div>
           </div>
-          <div className={`text-xs ${textColor} opacity-70`}>
-            +{userStats.newUsersToday} today
-          </div>
         </div>
 
         <div className={`p-4 rounded-lg ${cardBg} border ${borderColor}`}>
           <div className="flex items-center gap-3 mb-2">
             <div
               className={`p-2 rounded ${
-                isDark ? "bg-orange-900/20" : "bg-orange-50"
+                isDark ? "bg-orange-900/20" : "bg-[#7B635A]"
               }`}
             >
               <FiShield className="text-[#BFB0A7]" size={20} />
@@ -264,9 +259,6 @@ export default function AdminUsers({
               </div>
               <div className={`text-sm ${textColor}`}>Admin Users</div>
             </div>
-          </div>
-          <div className={`text-xs ${textColor} opacity-70`}>
-            Most popular: {userStats.topSign}
           </div>
         </div>
       </div>
@@ -341,8 +333,10 @@ export default function AdminUsers({
                       {user.role === "admin" && (
                         <span
                           className={`px-2 py-1 text-xs rounded-full ${
-                            isDark ? "bg-orange-900/30" : "bg-orange-100"
-                          } text-[#BFB0A7] font-medium`}
+                            isDark
+                              ? "bg-orange-900/30 text-[#BFB0A7]"
+                              : "bg-[#7B635A] text-white"
+                          }  font-medium`}
                         >
                           Admin
                         </span>

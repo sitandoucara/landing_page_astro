@@ -25,7 +25,7 @@ export default function AdminHome({
 
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
-  const [language, setLanguage] = useState("en"); // Tu pourrais le récupérer du contexte global
+  const [language, setLanguage] = useState("en");
 
   // Gestion des phases lunaires
   const [moonPhase, setMoonPhase] = useState("waning-gibbous");
@@ -44,7 +44,7 @@ export default function AdminHome({
       "https://vaajrvpkjbzyqbxiuzsi.supabase.co/storage/v1/object/public/assets/app/moon.png",
   });
 
-  // Charger les affirmations depuis l'API
+  // Load assertions from the API
   const fetchAffirmations = async () => {
     setLoading(true);
     try {
@@ -63,7 +63,7 @@ export default function AdminHome({
     }
   };
 
-  // Sauvegarder les affirmations
+  // Save the affirmations
   const handleSaveAffirmations = async () => {
     setSaving(true);
     try {
@@ -126,7 +126,7 @@ export default function AdminHome({
     });
   };
 
-  // Charger les affirmations au démarrage
+  // Load assertions on startup
   useEffect(() => {
     fetchAffirmations();
   }, [language]);
@@ -170,25 +170,21 @@ export default function AdminHome({
           >
             <div className="flex items-center justify-between mb-2">
               <span className={`text-sm ${textColor}`}>API Status</span>
-              <span className="font-semibold text-green-500">✓ Online</span>
             </div>
             <p className={`text-xs ${textColor} opacity-70 mb-2`}>
-              External API: horoscope-app-api.vercel.app/api/v1
+              Horoscope generated with API
             </p>
-            <p className={`text-xs ${textColor} opacity-70 mb-3`}>
-              Last verified: {new Date().toLocaleTimeString()} (Auto-checked in
-              mobile app)
-            </p>
+
             <div className="flex gap-2">
               <a
-                href="https://horoscope-app-api.vercel.app/api/v1"
+                href="https://horoscope-app-api.vercel.app/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`px-3 py-1 text-xs rounded flex items-center gap-1 transition ${
+                className={`px-3 py-1 text-base rounded flex items-center gap-1 transition ${
                   isDark
-                    ? "bg-blue-700 hover:bg-blue-600"
-                    : "bg-blue-100 hover:bg-blue-200"
-                } text-blue-600 hover:text-blue-700`}
+                    ? "bg-blue-700 text-blue-100 hover:bg-blue-600"
+                    : "bg-blue-100 text-blue-600 hover:bg-blue-200"
+                }  hover:text-blue-700`}
               >
                 <FiExternalLink size={12} />
                 View API Docs
@@ -197,11 +193,11 @@ export default function AdminHome({
                 href="https://horoscope-app-api.vercel.app/api/v1/get-horoscope/daily?sign=taurus&day=TODAY"
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`px-3 py-1 text-xs rounded flex items-center gap-1 transition ${
+                className={`px-3 py-1 text-base rounded flex items-center gap-1 transition ${
                   isDark
-                    ? "bg-green-700 hover:bg-green-600"
-                    : "bg-green-100 hover:bg-green-200"
-                } text-green-600 hover:text-green-700`}
+                    ? "bg-green-700 text-green-100 hover:bg-green-600"
+                    : "bg-green-100 text-green-600 hover:bg-green-200"
+                }  hover:text-green-700`}
               >
                 <FiExternalLink size={12} />
                 Test API Call
@@ -211,7 +207,7 @@ export default function AdminHome({
         </div>
       </div>
 
-      {/* Affirmations Management - Connecté à l'API */}
+      {/* Affirmations Management - Connected to the API */}
       <div className={`p-6 rounded-lg ${cardBg} border ${borderColor}`}>
         <div className="flex items-center justify-between mb-4">
           <h3 className={`text-lg font-semibold ${textColor}`}>
@@ -425,10 +421,6 @@ export default function AdminHome({
               </div>
             ))}
           </div>
-          <p className={`text-xs ${textColor} opacity-70 mt-2`}>
-            💡 Tip: Upload different images for each moon phase to enhance user
-            experience
-          </p>
         </div>
       </div>
     </div>

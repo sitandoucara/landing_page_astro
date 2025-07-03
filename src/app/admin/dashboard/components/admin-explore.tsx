@@ -36,9 +36,6 @@ export default function AdminExplore({
             <span className={`${textColor} font-medium`}>
               Lesson Management
             </span>
-            <span className={`text-sm font-semibold ${textColor}`}>
-              ✓ Developer Managed
-            </span>
           </div>
           <p className={`text-sm ${textColor} opacity-70 mb-3`}>
             JSON content and audio files synchronized by development team
@@ -101,9 +98,6 @@ export default function AdminExplore({
         >
           <div className="flex items-center justify-between mb-2">
             <span className={`${textColor} font-medium`}>Game Development</span>
-            <span className={`text-sm font-semibold ${textColor}`}>
-              ✓ Code Managed
-            </span>
           </div>
           <p className={`text-sm ${textColor} opacity-70 mb-3`}>
             Game logic and questions hardcoded by development team
@@ -152,9 +146,6 @@ export default function AdminExplore({
           <div className="flex items-center justify-between mb-2">
             <span className={`${textColor} font-medium`}>
               Filter Assets Storage
-            </span>
-            <span className={`text-sm font-semibold ${textColor}`}>
-              ✓ Connected
             </span>
           </div>
           <p className={`text-sm ${textColor} opacity-70 mb-3`}>

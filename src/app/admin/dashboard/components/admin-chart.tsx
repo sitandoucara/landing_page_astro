@@ -36,9 +36,6 @@ export default function AdminChart({
             <span className={`${textColor} font-medium`}>
               Free Astrology API
             </span>
-            <span className="text-green-500 text-sm font-semibold">
-              ✓ Active
-            </span>
           </div>
           <p className={`text-sm ${textColor} opacity-70 mb-3`}>
             Charts generated automatically during user registration
@@ -74,9 +71,6 @@ export default function AdminChart({
         >
           <div className="flex items-center justify-between mb-2">
             <span className={`${textColor} font-medium`}>Supabase Storage</span>
-            <span className="text-blue-500 text-sm font-semibold">
-              ✓ Connected
-            </span>
           </div>
           <p className={`text-sm ${textColor} opacity-70 mb-3`}>
             Planet interpretation texts stored as JSON files

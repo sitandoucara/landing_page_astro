@@ -8,11 +8,11 @@ import { User } from "@supabase/supabase-js";
 
 import { IoMoon, IoStar, IoPlanet, IoHeart, IoPerson } from "react-icons/io5";
 
-import AdminHome from "./components/AdminHome";
-import AdminChart from "./components/AdminChart";
-import AdminCompatibility from "./components/AdminCompatibility";
-import AdminUsers from "./components/AdminUsers";
-import AdminExplore from "./components/AdminExplore";
+import AdminHome from "./components/admin-home";
+import AdminChart from "./components/admin-chart";
+import AdminCompatibility from "./components/admin-compatibility";
+import AdminUsers from "./components/admin-users";
+import AdminExplore from "./components/admin-explore";
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -35,11 +35,11 @@ export default function AdminDashboard() {
   const cardBg = isDark ? "bg-[#3D2918]" : "bg-white";
   const borderColor = isDark ? "border-[#F2EAE0]/20" : "border-[#7b635a]/20";
 
-  // Vérification de l'auth au chargement
+  // Authentication verification on loading
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        // Vérifier la session locale
+        // Check the local session
         const adminSession = localStorage.getItem("admin_session");
         if (!adminSession) {
           router.push("/admin/auth");
@@ -48,7 +48,7 @@ export default function AdminDashboard() {
 
         const sessionData = JSON.parse(adminSession);
 
-        // Vérifier si la session n'est pas expirée
+        // Check if the session has not expired
         if (
           sessionData.expires &&
           new Date(sessionData.expires * 1000) < new Date()
@@ -58,7 +58,7 @@ export default function AdminDashboard() {
           return;
         }
 
-        // Vérifier avec Supabase que l'utilisateur est toujours admin
+        // Check with Supabase that the user is still admin
         const {
           data: { user },
           error,

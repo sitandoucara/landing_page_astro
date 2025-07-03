@@ -12,7 +12,7 @@ const supabaseAdmin = createClient(
   }
 );
 
-// GET - Récupérer toutes les affirmations
+// GET - Retrieve all statements
 export async function GET(request: NextRequest) {
   try {
     const url = new URL(request.url);
@@ -32,7 +32,7 @@ export async function GET(request: NextRequest) {
       );
     }
 
-    // Transformer en format plus pratique
+    // Transform into a more convenient format
     const affirmationsMap = data.reduce((acc, affirmation) => {
       acc[affirmation.type] = affirmation.text;
       return acc;
@@ -51,7 +51,7 @@ export async function GET(request: NextRequest) {
   }
 }
 
-// POST - Mettre à jour les affirmations
+// Update the statements
 export async function POST(request: NextRequest) {
   try {
     const { affirmations, language = "en" } = await request.json();
@@ -85,7 +85,7 @@ export async function POST(request: NextRequest) {
 
           let result;
           if (existingData) {
-            // UPDATE existant
+            // UPDATE existing
             result = await supabaseAdmin
               .from("affirmations")
               .update({
@@ -95,7 +95,6 @@ export async function POST(request: NextRequest) {
               .eq("type", type)
               .eq("language", language);
           } else {
-            // INSERT nouveau
             result = await supabaseAdmin.from("affirmations").insert({
               type,
               text: text.trim(),

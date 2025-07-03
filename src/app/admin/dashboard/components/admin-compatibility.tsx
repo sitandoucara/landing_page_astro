@@ -16,7 +16,7 @@ export default function AdminCompatibility({
   cardBg,
   borderColor,
 }: AdminCompatibilityProps) {
-  // Données de compatibilité basées sur ton app
+  // Compatibility data based on your app
   const [compatibilityData, setCompatibilityData] = useState({
     romance: {
       title: "Romance",
