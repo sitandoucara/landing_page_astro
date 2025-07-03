@@ -1,4 +1,3 @@
-// src/app/layout.tsx
 import type { Metadata } from "next";
 import { Aref_Ruqaa, Carattere } from "next/font/google";
 import "./globals.css";
@@ -20,6 +19,19 @@ const carattere = Carattere({
 export const metadata: Metadata = {
   title: "My AstroMood",
   description: "Stars in the palm of your hand",
+  icons: {
+    icon: [
+      {
+        url: "/favicon-dark.png",
+        media: "(prefers-color-scheme: light)",
+      },
+      {
+        url: "/favicon-light.png",
+        media: "(prefers-color-scheme: dark)",
+      },
+    ],
+    shortcut: "/favicon-dark.png",
+  },
 };
 
 export default function RootLayout({

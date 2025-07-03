@@ -17,6 +17,22 @@ interface AdminUserManagementProps {
   borderColor: string;
 }
 
+interface RawSupabaseUser {
+  id: string;
+  email: string;
+  created_at: string;
+  updated_at?: string;
+  user_metadata?: {
+    username?: string;
+    dateOfBirth?: string;
+    gender?: string;
+    birthplace?: string;
+  };
+  app_metadata?: {
+    role?: "admin" | "user";
+  };
+}
+
 interface User {
   id: string;
   username: string;
@@ -114,17 +130,19 @@ export default function AdminUsers({
       const data = await response.json();
 
       // Transformer les données Supabase en format utilisable
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const transformedUsers: User[] = data.users.map((user: any) => ({
-        id: user.id,
-        email: user.email,
-        username: user.user_metadata?.username || "Unknown",
-        role: user.app_metadata?.role || "user",
-        sign: getZodiacSign(user.user_metadata?.dateOfBirth),
-        createdAt: user.created_at?.split("T")[0] || "",
-        gender: user.user_metadata?.gender || "Unknown",
-        birthplace: user.user_metadata?.birthplace || "Unknown",
-      }));
+
+      const transformedUsers: User[] = (data.users as RawSupabaseUser[]).map(
+        (user) => ({
+          id: user.id,
+          email: user.email,
+          username: user.user_metadata?.username || "Unknown",
+          role: user.app_metadata?.role || "user",
+          sign: getZodiacSign(user.user_metadata?.dateOfBirth || ""),
+          createdAt: user.created_at?.split("T")[0] || "",
+          gender: user.user_metadata?.gender || "Unknown",
+          birthplace: user.user_metadata?.birthplace || "Unknown",
+        })
+      );
 
       setUsers(transformedUsers);
     } catch (error) {

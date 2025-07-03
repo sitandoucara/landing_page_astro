@@ -105,12 +105,6 @@ export default function Header2({ language, theme }: Header2Props) {
 
   const opacityQuizz = useTransform(scrollYProgress, [0.75, 0.85], [0, 1]);
 
-  // DISPLAYS calculés dynamiquement
-  const displayHome = useDisplay(opacityHome as MotionValue<unknown>);
-  const displayComp = useDisplay(opacityComp as MotionValue<unknown>);
-  const displayLearn = useDisplay(opacityLearn as MotionValue<unknown>);
-  const displayQuizz = useDisplay(opacityQuizz as MotionValue<unknown>);
-
   // IMAGES BACKGROUND avec animations plus fluides
   const opacityZodiacDaily = opacityHome;
   const displayZodiacDaily = useDisplay(
@@ -164,8 +158,12 @@ export default function Header2({ language, theme }: Header2Props) {
 
   const mockupRotate = useTransform(scrollYProgress, [0, 0.5, 1], [0, 2, -2]);
 
-  // Animation pour les backgrounds avec rotation et scale
-  const bgScale = useTransform(scrollYProgress, [0, 0.5, 1], [1, 1.1, 1]);
+  // Animation pour les backgrounds avec rotation et scale - TAILLE RÉDUITE PENDANT LA ROTATION
+  const bgScale = useTransform(
+    scrollYProgress,
+    [0, 0.1, 0.9, 1],
+    [1, 0.85, 0.85, 1]
+  );
 
   const bgRotate = useTransform(scrollYProgress, [0, 1], [0, 360]);
 
@@ -242,9 +240,9 @@ export default function Header2({ language, theme }: Header2Props) {
     <div ref={containerRef} className="min-h-[200vh] relative">
       <div className="sticky top-0 min-h-screen">
         <section className="min-h-screen grid grid-cols-1 md:grid-cols-[0.8fr_1fr] items-center justify-center justify-items-center p-4">
-          {/* SECTION TEXTE - CENTRÉE FIXE */}
-          <div className="flex flex-col justify-center h-full">
-            <div className="text space-y-6">
+          {/* SECTION TEXTE - CENTRÉE COMME HEADER1 */}
+          <div className="grid grid-rows-[1fr_auto] gap-8 items-start">
+            <div className="text max-w-lg">
               <motion.h1
                 className={`md:text-[2.5rem] text-2xl font-extrabold drop-shadow-[0_0_10px_#795c5299] leading-tight whitespace-pre-line transition-all duration-700 ${textColor}`}
                 initial={{ opacity: 0, y: 20 }}
@@ -256,7 +254,7 @@ export default function Header2({ language, theme }: Header2Props) {
 
               <motion.p
                 key={`subtitle-${activeTab}`}
-                className={`text-lg italic drop-shadow-[0_0_6px_rgba(255,191,150,0.4)] ${textColor}`}
+                className={`text-lg italic drop-shadow-[0_0_6px_rgba(255,191,150,0.4)] mt-4 ${textColor}`}
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, ease: "easeOut" }}
@@ -266,7 +264,7 @@ export default function Header2({ language, theme }: Header2Props) {
 
               <motion.p
                 key={`content-${activeTab}`}
-                className={`text-lg leading-relaxed ${textColor}`}
+                className={`text-lg leading-relaxed mt-4 ${textColor}`}
                 initial={{ opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
@@ -275,9 +273,9 @@ export default function Header2({ language, theme }: Header2Props) {
               </motion.p>
             </div>
 
-            {/* BOUTONS APP STORE - POSITION FIXE */}
+            {/* BOUTONS APP STORE - MÊME STRUCTURE QUE HEADER1 */}
             <motion.div
-              className="flex mt-8"
+              className="flex"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, ease: "easeOut", delay: 0.4 }}
@@ -374,7 +372,7 @@ export default function Header2({ language, theme }: Header2Props) {
                     style={{
                       width: 600,
                       height: 600,
-                      transform: "scale(1.2)", // Agrandir encore plus
+                      transform: "scale(1.3)",
                     }}
                   />
                 </div>
@@ -399,14 +397,12 @@ export default function Header2({ language, theme }: Header2Props) {
                     style={{
                       width: 600,
                       height: 600,
-                      transform: "scale(1.2)", // Agrandir encore plus
+                      transform: "scale(1.22)",
                     }}
                   />
                 </div>
               )}
             </motion.div>
-
-            {/* Zodiac CHART - SUPPRIMÉ */}
 
             {/* MOCKUP HOME - Premier */}
             <motion.div

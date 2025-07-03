@@ -164,8 +164,8 @@ export default function AdminHome({
 
         <div className="grid grid-cols-1 gap-4">
           <div
-            className={`p-4 rounded border-l-4 border-green-500 ${
-              isDark ? "bg-green-900/20" : "bg-green-50"
+            className={`p-4 rounded border-l-4 border-[#BFB0A7] ${
+              isDark ? "bg-[#584540]/20" : "bg-[#584540]/10"
             }`}
           >
             <div className="flex items-center justify-between mb-2">

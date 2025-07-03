@@ -36,7 +36,7 @@ export default function AdminExplore({
             <span className={`${textColor} font-medium`}>
               Lesson Management
             </span>
-            <span className="text-[#BFB0A7] text-sm font-semibold">
+            <span className={`text-sm font-semibold ${textColor}`}>
               ✓ Developer Managed
             </span>
           </div>
@@ -101,7 +101,7 @@ export default function AdminExplore({
         >
           <div className="flex items-center justify-between mb-2">
             <span className={`${textColor} font-medium`}>Game Development</span>
-            <span className="text-[#BFB0A7] text-sm font-semibold">
+            <span className={`text-sm font-semibold ${textColor}`}>
               ✓ Code Managed
             </span>
           </div>
@@ -153,7 +153,7 @@ export default function AdminExplore({
             <span className={`${textColor} font-medium`}>
               Filter Assets Storage
             </span>
-            <span className="text-[#BFB0A7] text-sm font-semibold">
+            <span className={`text-sm font-semibold ${textColor}`}>
               ✓ Connected
             </span>
           </div>
