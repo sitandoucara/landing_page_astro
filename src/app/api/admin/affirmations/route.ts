@@ -66,11 +66,11 @@ export async function POST(request: NextRequest) {
     const updates = [];
     const errors = [];
 
-    // Mettre à jour chaque affirmation
+    // Update each statement
     for (const [type, text] of Object.entries(affirmations)) {
       if (typeof text === "string" && text.trim()) {
         try {
-          // Essayer d'abord un UPDATE
+          // Try an UPDATE first
           const { data: existingData, error: selectError } = await supabaseAdmin
             .from("affirmations")
             .select("id")

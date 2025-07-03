@@ -40,11 +40,10 @@ export default function Loading2({
 
   return (
     <div className="fixed inset-0 z-[100] w-screen h-screen overflow-hidden bg-transparent">
-      {/* PORTES */}
       <div
         className={`absolute left-1/2 top-1/2 w-full h-full -translate-x-1/2 -translate-y-1/2 transition-all duration-[3000ms] ease-[ease]`}
       >
-        {/* GAUCHE */}
+        {/* Left */}
 
         <div
           className={`absolute top-0 left-0 h-full w-1/2 border-r-[3px]   grain-overlay  bg-cover bg-center transition-transform duration-[3000ms] ease-[ease] delay-[2000ms] ${
@@ -53,7 +52,7 @@ export default function Loading2({
           style={{ borderColor, backgroundColor: bgColor }}
         />
 
-        {/* DROITE */}
+        {/* Right */}
         <div
           className={`absolute top-0 right-0 h-full w-1/2 border-l-[3px]   grain-overlay  bg-cover bg-center transition-transform duration-[3000ms] ease-[ease] delay-[2000ms] ${
             startExit ? "translate-x-[110vw]" : ""
@@ -73,7 +72,7 @@ export default function Loading2({
               }`}
             />
 
-            {/* TEXTE CENTRÉ */}
+            {/* TEXT */}
             <div
               className={`absolute inset-0 flex items-center justify-center transition-opacity duration-1000 ${
                 startExit ? "opacity-0" : "opacity-100"

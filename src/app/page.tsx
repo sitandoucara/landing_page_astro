@@ -1,4 +1,3 @@
-// src/app/page.tsx - Page d'accueil avec choix
 "use client";
 
 import { useState } from "react";

@@ -1,7 +1,7 @@
 import { createClient } from "@supabase/supabase-js";
 import { NextResponse } from "next/server";
 
-// Configuration Supabase Admin (avec service_role key)
+// Supabase Admin Configuration
 const supabaseAdmin = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
   process.env.SUPABASE_SERVICE_ROLE_KEY!,
@@ -13,9 +13,9 @@ const supabaseAdmin = createClient(
   }
 );
 
+// Retrieve all users via the Admin API
 export async function GET() {
   try {
-    // Récupérer tous les utilisateurs via l'Admin API
     const {
       data: { users },
       error,
@@ -32,7 +32,6 @@ export async function GET() {
       );
     }
 
-    // Filtrer les informations sensibles
     const sanitizedUsers = users.map((user) => ({
       id: user.id,
       email: user.email,

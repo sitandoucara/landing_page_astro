@@ -1,7 +1,7 @@
 import { createClient } from "@supabase/supabase-js";
 import { NextRequest, NextResponse } from "next/server";
 
-// Configuration Supabase Admin
+// Supabase Admin Configuration
 const supabaseAdmin = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
   process.env.SUPABASE_SERVICE_ROLE_KEY!,
@@ -17,7 +17,6 @@ export async function POST(request: NextRequest) {
   try {
     const { userId, role } = await request.json();
 
-    // Validation
     if (!userId || !role) {
       return NextResponse.json(
         { error: "userId and role are required" },
@@ -32,7 +31,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Mettre à jour le rôle de l'utilisateur
+    // Update the user's role
     const { data, error } = await supabaseAdmin.auth.admin.updateUserById(
       userId,
       {

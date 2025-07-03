@@ -8,7 +8,7 @@ interface FooterProps {
 export default function Footer({ language, theme }: FooterProps) {
   const footerTexts = {
     en: {
-      rights: "© 2025 AstroMood. All rights reserved.",
+      rights: "© 2025 My AstroMood. All rights reserved.",
       built: "Built by Si_Graph",
       privacy: "Privacy Policy",
       terms: "Terms and Conditions",

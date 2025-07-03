@@ -3,7 +3,6 @@
 import dynamic from "next/dynamic";
 import type { ComponentType } from "react";
 
-// Définir manuellement le type des props du composant
 interface MouseParticlesProps {
   g?: number;
   num?: number;

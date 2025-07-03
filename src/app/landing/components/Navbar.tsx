@@ -29,14 +29,12 @@ export default function Navbar({
   const circleBg = isDark ? "bg-[#1a0d06]" : "bg-[#e6ddd4]";
   const circleBorder = isDark ? "border-[#F2EAE0]/20" : "border-[#7b635a]/20";
 
-  // Chemin du logo selon le thème
   const imageSrc = isDark ? "/assets/dark/logo.png" : "/assets/light/logo.png";
 
   return (
     <nav
       className={`flex z-10 justify-between items-center p-4 border-b transition-all duration-500 ${borderColor} ${bgColor} sticky top-0 backdrop-blur-sm`}
     >
-      {/* Logo + Titre à gauche */}
       <div className="flex items-center gap-3">
         <div className="w-8 h-8 relative">
           <Image
@@ -54,9 +52,7 @@ export default function Navbar({
         </h1>
       </div>
 
-      {/* Contrôles à droite - chacun dans son cercle */}
       <div className="flex items-center gap-3">
-        {/* Switch thème dans son cercle */}
         <button
           onClick={toggleTheme}
           aria-label="Toggle theme"
@@ -73,7 +69,6 @@ export default function Navbar({
           )}
         </button>
 
-        {/* Switch langue dans son cercle */}
         <button
           onClick={() => setLanguage(language === "en" ? "fr" : "en")}
           className={`w-10 h-10 rounded-full border flex items-center justify-center text-sm font-bold transition-all duration-300 hover:scale-110 ${circleBg} ${circleBorder} ${textColor} ${hoverColor}`}

@@ -1,4 +1,3 @@
-// components/Header2.tsx
 "use client";
 
 import Image from "next/image";
@@ -22,9 +21,8 @@ export default function Header2({ language, theme }: Header2Props) {
   const [bookAnimationData, setBookAnimationData] = useState(null);
   const [quizzAnimationData, setQuizzAnimationData] = useState(null);
 
-  // Charger les animations Lottie
+  // load lottie animation
   useEffect(() => {
-    // Charger l'animation book
     fetch("/assets/book.json")
       .then((response) => response.json())
       .then((data) => setBookAnimationData(data))
@@ -32,7 +30,7 @@ export default function Header2({ language, theme }: Header2Props) {
         console.error("Erreur lors du chargement de l'animation book:", error)
       );
 
-    // Charger l'animation quizz
+    // load quizz animation
     fetch("/assets/quizz.json")
       .then((response) => response.json())
       .then((data) => setQuizzAnimationData(data))
@@ -46,13 +44,12 @@ export default function Header2({ language, theme }: Header2Props) {
     offset: ["start start", "end end"],
   });
 
-  // Custom hook pour gérer l'affichage avec transition plus fluide
+  // hook for good animation
   function useDisplay(opacity: MotionValue<unknown>) {
-    const [display, setDisplay] = useState<"block" | "none">("block"); // COMMENCE PAR "block"
+    const [display, setDisplay] = useState<"block" | "none">("block");
 
     useMotionValueEvent(opacity, "change", (v) => {
       if (typeof v === "number" && v <= 0.05) {
-        // Seuil légèrement plus élevé pour éviter les clignotements
         setDisplay("none");
       } else {
         setDisplay("block");
@@ -62,12 +59,11 @@ export default function Header2({ language, theme }: Header2Props) {
     return display;
   }
 
-  // État pour l'onglet actif - COMMENCE PAR "home" (daily)
   const [activeTab, setActiveTab] = useState<
     "home" | "compatibility" | "learn" | "quizz"
   >("home");
 
-  // Gestion du changement d'onglet basé sur le scroll - ORDRE MODIFIÉ (PAS DE RETOUR AU CHART)
+  // Change elemenet with scroll
   useMotionValueEvent(scrollYProgress, "change", (latest) => {
     if (latest > 0.75 && activeTab !== "quizz") {
       setActiveTab("quizz");
@@ -105,7 +101,7 @@ export default function Header2({ language, theme }: Header2Props) {
 
   const opacityQuizz = useTransform(scrollYProgress, [0.75, 0.85], [0, 1]);
 
-  // IMAGES BACKGROUND avec animations plus fluides
+  // img bckg animation
   const opacityZodiacDaily = opacityHome;
   const displayZodiacDaily = useDisplay(
     opacityZodiacDaily as MotionValue<unknown>
@@ -116,19 +112,19 @@ export default function Header2({ language, theme }: Header2Props) {
     opacityZodiacCompatibility as MotionValue<unknown>
   );
 
-  // Animation Lottie pour Learn
+  // Animation Lottie for Learn
   const opacityLottieLearn = opacityLearn;
   const displayLottieLearn = useDisplay(
     opacityLottieLearn as MotionValue<unknown>
   );
 
-  // Animation Lottie pour Quizz
+  // Animation Lottie for Quizz
   const opacityLottieQuizz = opacityQuizz;
   const displayLottieQuizz = useDisplay(
     opacityLottieQuizz as MotionValue<unknown>
   );
 
-  // MOCKUPS avec ordre modifié
+  // MOCKUPS
   const opacityMockupHome = opacityHome;
   const displayMockupHome = useDisplay(
     opacityMockupHome as MotionValue<unknown>
@@ -149,7 +145,7 @@ export default function Header2({ language, theme }: Header2Props) {
     opacityMockupQuizz as MotionValue<unknown>
   );
 
-  // Animations pour les mockups avec des effets plus sophistiqués
+  // mockup animation
   const mockupScale = useTransform(
     scrollYProgress,
     [0, 0.2, 0.8, 1],
@@ -158,7 +154,7 @@ export default function Header2({ language, theme }: Header2Props) {
 
   const mockupRotate = useTransform(scrollYProgress, [0, 0.5, 1], [0, 2, -2]);
 
-  // Animation pour les backgrounds avec rotation et scale - TAILLE RÉDUITE PENDANT LA ROTATION
+  // background animation (ex:daily)
   const bgScale = useTransform(
     scrollYProgress,
     [0, 0.1, 0.9, 1],
@@ -167,7 +163,6 @@ export default function Header2({ language, theme }: Header2Props) {
 
   const bgRotate = useTransform(scrollYProgress, [0, 1], [0, 360]);
 
-  // Textes mis à jour avec le nouvel ordre
   const texts = {
     en: {
       title: "AstroMood app\nConnected to your stars",
@@ -201,7 +196,6 @@ export default function Header2({ language, theme }: Header2Props) {
     },
   };
 
-  // Fonction pour obtenir le texte actuel basé sur l'onglet actif
   const getCurrentTexts = () => {
     switch (activeTab) {
       case "home":
@@ -240,7 +234,7 @@ export default function Header2({ language, theme }: Header2Props) {
     <div ref={containerRef} className="min-h-[200vh] relative">
       <div className="sticky top-0 min-h-screen">
         <section className="min-h-screen grid grid-cols-1 md:grid-cols-[0.8fr_1fr] items-center justify-center justify-items-center p-4">
-          {/* SECTION TEXTE - CENTRÉE COMME HEADER1 */}
+          {/* TEXT all header */}
           <div className="grid grid-rows-[1fr_auto] gap-8 items-start">
             <div className="text max-w-lg">
               <motion.h1
@@ -273,7 +267,7 @@ export default function Header2({ language, theme }: Header2Props) {
               </motion.p>
             </div>
 
-            {/* BOUTONS APP STORE - MÊME STRUCTURE QUE HEADER1 */}
+            {/* Btns APP STORE */}
             <motion.div
               className="flex"
               initial={{ opacity: 0, y: 20 }}
@@ -308,9 +302,9 @@ export default function Header2({ language, theme }: Header2Props) {
             </motion.div>
           </div>
 
-          {/* IMAGE ZONE avec animations améliorées */}
+          {/* ZONE with animations  */}
           <div className="relative z-3 w-[400px] h-[400px] md:w-[600px] md:h-[600px] overflow-hidden">
-            {/* Zodiac DAILY - Premier */}
+            {/* Zodiac DAILY - first */}
             <motion.div
               className="absolute inset-0"
               style={{
@@ -471,7 +465,7 @@ export default function Header2({ language, theme }: Header2Props) {
               </motion.div>
             </motion.div>
 
-            {/* MOCKUP LEARN */}
+            {/* MOCKUP learn */}
             <motion.div
               className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
               style={{
